@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="mt-4">
-                    {{ $post->content }}
+                    {!! $post->content !!}
                 </div>
             </div>
         </div>
