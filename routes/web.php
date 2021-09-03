@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,11 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard', [
+        'posts' => auth()->user()->posts()->latest()->get(),
+    ]);
 })->middleware(['auth'])->name('dashboard');
+
+Route::resource('posts', Controllers\PostController::class);
 
 require __DIR__.'/auth.php';
