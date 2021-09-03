@@ -25,7 +25,7 @@ return [
     'settings'      => [
         'default' => [
             'HTML.Doctype'             => 'HTML 4.01 Transitional',
-            'HTML.Allowed'             => 'div,b,strong,i,em,u,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]',
+            'HTML.Allowed' => 'rich-text-attachment[sgid|content-type|url|href|filename|filesize|height|width|previewable|presentation|caption|data-trix-attachment|data-trix-attributes],div,b,strong,i,em,u,a[href|title|data-turbo-frame],ul,ol,li,p[style],br,span[style],img[width|height|alt|src],del,h1,blockquote,figure[data-trix-attributes|data-trix-attachment],figcaption,pre,*[class]',
             'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
             'AutoFormat.AutoParagraph' => true,
             'AutoFormat.RemoveEmpty'   => true,
@@ -49,15 +49,15 @@ return [
                 ['aside',   'Block', 'Flow', 'Common'],
                 ['header',  'Block', 'Flow', 'Common'],
                 ['footer',  'Block', 'Flow', 'Common'],
-				
+
 				// Content model actually excludes several tags, not modelled here
                 ['address', 'Block', 'Flow', 'Common'],
                 ['hgroup', 'Block', 'Required: h1 | h2 | h3 | h4 | h5 | h6', 'Common'],
-				
+
 				// http://developers.whatwg.org/grouping-content.html
                 ['figure', 'Block', 'Optional: (figcaption, Flow) | (Flow, figcaption) | Flow', 'Common'],
                 ['figcaption', 'Inline', 'Flow', 'Common'],
-				
+
 				// http://developers.whatwg.org/the-video-element.html#the-video-element
                 ['video', 'Block', 'Optional: (source, Flow) | (Flow, source) | Flow', 'Common', [
                     'src' => 'URI',
@@ -80,10 +80,13 @@ return [
                 ['sup',  'Inline', 'Inline', 'Common'],
                 ['mark', 'Inline', 'Inline', 'Common'],
                 ['wbr',  'Inline', 'Empty', 'Core'],
-				
+
 				// http://developers.whatwg.org/edits.html
                 ['ins', 'Block', 'Flow', 'Common', ['cite' => 'URI', 'datetime' => 'CDATA']],
                 ['del', 'Block', 'Flow', 'Common', ['cite' => 'URI', 'datetime' => 'CDATA']],
+
+                // RichTextLaravel
+                ['rich-text-attachment', 'Block', 'Flow', 'Common'],
             ],
             'attributes' => [
                 ['iframe', 'allowfullscreen', 'Bool'],
@@ -97,9 +100,31 @@ return [
         ],
         'custom_attributes' => [
             ['a', 'target', 'Enum#_blank,_self,_target,_top'],
+
+            // RichTextLaravel
+            ['a', 'data-turbo-frame', 'Text'],
+            ['img', 'class', new HTMLPurifier_AttrDef_Text()],
+            ['rich-text-attachment', 'sgid', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'content-type', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'url', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'href', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'filename', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'filesize', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'height', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'width', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'previewable', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'presentation', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'caption', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'data-trix-attachment', new HTMLPurifier_AttrDef_Text],
+            ['rich-text-attachment', 'data-trix-attributes', new HTMLPurifier_AttrDef_Text],
+            ['figure', 'data-trix-attachment', new HTMLPurifier_AttrDef_Text],
+            ['figure', 'data-trix-attributes', new HTMLPurifier_AttrDef_Text],
         ],
         'custom_elements' => [
             ['u', 'Inline', 'Inline', 'Common'],
+
+            // RichTextLaravel
+            ['rich-text-attachment', 'Block', 'Flow', 'Common'],
         ],
     ],
 
