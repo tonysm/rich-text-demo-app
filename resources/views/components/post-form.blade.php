@@ -15,9 +15,9 @@
 
     <!-- Post Content -->
     <div class="mt-4">
-        <x-label for="content" :value="__('Content')" />
+        <x-label for="content" :value="__('Content')" class="mb-1" />
 
-        <x-textarea id="content" rows="5" class="block mt-1 w-full" placeholder="Share something cool..." name="content" :value="old('title', $post->title)" required />
+        <x-richtext id="content" name="content" :value="$post->content" />
 
         <x-input-validation for="content" />
     </div>

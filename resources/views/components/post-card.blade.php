@@ -5,7 +5,7 @@
         </div>
 
         <div class="mt-4">
-            {{ Str::limit($post->content, 300) }}
+            {{ Str::limit($post->content->toPlainText(), 300) }}
         </div>
     </a>
 </div>
