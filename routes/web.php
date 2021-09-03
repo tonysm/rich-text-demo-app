@@ -2,6 +2,7 @@
 
 use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,18 @@ Route::get('/dashboard', function () {
         'posts' => auth()->user()->posts()->latest()->get(),
     ]);
 })->middleware(['auth'])->name('dashboard');
+
+Route::post('attachments', function () {
+    request()->validate([
+        'attachment' => ['required', 'file'],
+    ]);
+
+    $path = request()->file('attachment')->store('trix-attachments', 'public');
+
+    return [
+        'image_url' => Storage::disk('public')->url($path),
+    ];
+})->middleware(['auth'])->name('attachments.store');
 
 Route::resource('posts', Controllers\PostController::class);
 
