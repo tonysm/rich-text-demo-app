@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="mt-4">
-                    {!! $post->content !!}
+                    {!! clean($post->content) !!}
                 </div>
             </div>
         </div>
