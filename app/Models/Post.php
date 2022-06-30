@@ -10,6 +10,7 @@ class Post extends Model
 {
     use HasFactory;
     use HasRichText;
+    use Concerns\HasAttachments;
 
     protected $guarded = [];
 

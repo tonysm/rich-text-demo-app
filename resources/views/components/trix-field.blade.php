@@ -24,6 +24,7 @@
                 },
             }).then(({ data }) => {
                 event.attachment.setAttributes({
+                    sgid: data.attachable_sgid,
                     url: data.image_url,
                 });
             });
