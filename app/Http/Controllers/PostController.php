@@ -44,6 +44,8 @@ class PostController extends Controller
 
         $post = auth()->user()->posts()->create($data);
 
+        $post->syncAttachmentsMeta();
+
         return redirect()->route('posts.show', $post);
     }
 
@@ -86,6 +88,8 @@ class PostController extends Controller
             'title' => ['required', 'min:3', 'max:255'],
             'content' => ['required'],
         ]));
+
+        $post->syncAttachmentsMeta();
 
         return redirect()->route('posts.show', $post);
     }
